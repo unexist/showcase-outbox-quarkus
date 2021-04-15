@@ -13,7 +13,6 @@ package dev.unexist.showcase.todo.domain.todo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class TodoService {
 
     @Inject
-    @Named("todo_list")
     TodoRepository todoRepository;
 
     /**
