@@ -10,8 +10,8 @@ import org.apache.kafka.connect.transforms.Transformation;
 import java.util.Map;
 
 /**
- * The class is configured and invoked when a changes occur on any OutBox Schema.
- */
+ * The class is configured and invoked when a change occurs on any outbox
+ **/
 public class CustomTransformer<R extends ConnectRecord<R>> implements Transformation<R> {
 
     /**
