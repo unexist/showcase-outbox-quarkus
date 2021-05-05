@@ -17,73 +17,54 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-@Named("todo_list")
 public class TodoRepositoryImpl implements TodoRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositoryImpl.class);
 
-    private final List<Todo> list;
+    @Inject
+    EntityManager entityManager;
 
-    /**
-     * Constructor
-     **/
+    @Override
+    public boolean add(Todo todo) {
+        this.entityManager.persist(todo);
 
-    TodoRepositoryImpl() {
-        this.list = new ArrayList<>();
+        return true;
     }
 
     @Override
-    public boolean add(final Todo todo) {
-        todo.setId(this.list.size() + 1);
+    public boolean update(Todo todo) {
+        this.entityManager.persist(todo);
 
-        return this.list.add(todo);
-    }
-
-    @Override
-    public boolean update(final Todo todo) {
-        boolean ret = false;
-
-        try {
-            this.list.set(todo.getId(), todo);
-
-            ret = true;
-        } catch (IndexOutOfBoundsException e) {
-            LOGGER.warn("update: id={} not found", todo.getId());
-        }
-
-        return ret;
+        return true;
     }
 
     @Override
     public boolean deleteById(int id) {
-        boolean ret = false;
+        findById(id).ifPresent(todo -> this.entityManager.remove(todo));
 
-        try {
-            this.list.remove(id);
-
-            ret = true;
-        } catch (IndexOutOfBoundsException e) {
-            LOGGER.warn("update: id={} not found", id);
-        }
-
-        return ret;
+        return true;
     }
 
     @Override
     public List<Todo> getAll() {
-        return Collections.unmodifiableList(this.list);
+        return this.entityManager.createNamedQuery(Todo.FIND_ALL, Todo.class)
+                .getResultList();
     }
 
     @Override
     public Optional<Todo> findById(int id) {
-        return this.list.stream()
-                .filter(t -> t.getId() == id)
+        return this.entityManager.createNamedQuery(Todo.FIND_BY_ID, Todo.class)
+                .setParameter("id", id)
+                .getResultList()
+                .stream()
                 .findFirst();
     }
 }
