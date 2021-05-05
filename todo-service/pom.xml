@@ -12,4 +12,20 @@
         <version>0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
+    <dependencies>
+        <!-- Database -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-devservices-postgresql</artifactId>
+        </dependency>
+    </dependencies>
 </project>
