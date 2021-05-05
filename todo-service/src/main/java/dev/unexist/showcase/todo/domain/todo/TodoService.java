@@ -1,7 +1,7 @@
 /**
  * @package Quarkus-Kubernetes-Showcase
  *
- * @file Todo service and domain service
+ * @file Todo domain service
  * @copyright 2020-2021 Christoph Kappel <christoph@unexist.dev>
  * @version $Id$
  *
@@ -11,16 +11,28 @@
 
 package dev.unexist.showcase.todo.domain.todo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.unexist.showcase.todo.infrastructure.outbox.OutboxEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
 public class TodoService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TodoService.class);
 
     @Inject
     TodoRepository todoRepository;
+
+    @Inject
+    Event<OutboxEvent> eventHandler;
 
     /**
      * Create new {@link Todo} entry and store it in repository
@@ -31,10 +43,31 @@ public class TodoService {
      *          Either {@code true} on success; otherwise {@code false}
      **/
 
+    @Transactional
     public boolean create(TodoBase base) {
+        boolean retval = true;
         Todo todo = new Todo(base);
 
-        return this.todoRepository.add(todo);
+        this.todoRepository.add(todo);
+
+        OutboxEvent event = new OutboxEvent();
+
+        event.setAggregateId(todo.getId());
+        event.setEventType("topic");
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            event.setPayload(mapper.writeValueAsString(todo));
+        } catch (JsonProcessingException jpe) {
+            LOGGER.warn("Json error: {}", jpe.getMessage(), jpe);
+
+            retval = false;
+        }
+
+        this.eventHandler.fire(event);
+
+        return retval;
     }
 
     /**
