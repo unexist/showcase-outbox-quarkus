@@ -31,7 +31,7 @@ public class TodoTransformer<R extends ConnectRecord<R>> implements Transformati
             /* Get the details */
             Struct after = (Struct) kStruct.get("after");
             String UUID = after.getString("uuid");
-            String eventType = after.getString("event_type").toLowerCase();
+            String eventType = after.getString("eventtype").toLowerCase();
             String topic = eventType.toLowerCase();
             String payload = after.getString("payload");
 
