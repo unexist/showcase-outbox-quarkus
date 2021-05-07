@@ -53,7 +53,7 @@ public class TodoService {
         OutboxEvent event = new OutboxEvent();
 
         event.setAggregateId(todo.getId());
-        event.setEventType("topic");
+        event.setEventType("todo_created");
 
         try {
             ObjectMapper mapper = new ObjectMapper();

@@ -11,19 +11,26 @@
 
 package dev.unexist.showcase.todo.domain.todo;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 
+@MappedSuperclass
 public class TodoBase {
 
     @NotBlank
+    @Column
     private String title;
 
     @NotBlank
+    @Column
     private String description;
 
+    @Column
     private Boolean done;
 
-    @NotBlank
+    @Embedded
     private DueDate dueDate;
 
     /**

@@ -13,18 +13,21 @@ package dev.unexist.showcase.todo.infrastructure.outbox;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.enterprise.event.ObservesAsync;
 import javax.enterprise.event.TransactionPhase;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.UUID;
+
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
 
 @ApplicationScoped
 public class OutboxService {
 
     @Inject
-    private OutboxRepository outboxRepository;
+    OutboxRepository outboxRepository;
 
-    public void handleOutboxEvent(@Observes(during=TransactionPhase.AFTER_SUCCESS) OutboxEvent event) {
+    @Transactional(REQUIRES_NEW)
+    public void handleOutboxEvent(@Observes(during = TransactionPhase.AFTER_SUCCESS) OutboxEvent event) {
         UUID uuid = UUID.randomUUID();
 
         OutboxEntity entity = new OutboxEntity(uuid,
