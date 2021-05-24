@@ -15,7 +15,7 @@
 
     <modules>
         <module>debezium-transformer</module>
-        <module>todo-service-debezium</module>
+        <module>todo-service-extension</module>
         <module>todo-service-standalone</module>
     </modules>
 </project>
