@@ -21,7 +21,7 @@ import java.util.UUID;
 import static java.util.Objects.requireNonNull;
 
 @Entity
-@Table(name = "OUTBOX")
+@Table(name = "outbox_standalone")
 public class OutboxEntity {
 
     @Id
