@@ -38,12 +38,11 @@ curl -X POST \
 		"database.dbname": "showcase",
 		"database.server.name": "pg-outbox-extension-server",
 		"tombstones.on.delete": "false",
-		"schema.whitelist" : "todos,todo,todo_created",
 		"table.whitelist": "public.outbox_extension",
 		"transforms": "outbox",
 		"transforms.outbox.type" : "io.debezium.transforms.outbox.EventRouter",
 		"transforms.outbox.route.by.field": "type",
-		"transforms.outbox.route.topic.replacement": "${routedByValue}",
+		"transforms.outbox.route.topic.replacement": "todo_created",
 		"transforms.outbox.table.field.event.timestamp": "timestamp",
 		"transforms.outbox.table.fields.additional.placement": "type:header:eventType"
 	}
@@ -76,21 +75,31 @@ debezium:
 	docker build -t showcase-debezium-connect .
 
 # Connector
-connector-create-standalone:
+connector-standalone-create:
 	@echo $$JSON_CONNECTOR_STANDALONE | bash
 
-connector-status-standalone:
+connector-extension-create:
+	@echo $$JSON_CONNECTOR_EXTENSION | bash
+
+connector-create: connector-standalone-create connector-extension-create
+
+connector-standalone-status:
 	curl -X "GET" http://localhost:8083/connectors/todo-outbox-standalone-connector/status \
 		-H 'content-type: application/json' | jq .
 
-connector-status-extension:
+connector-extension-status:
 	curl -X "GET" http://localhost:8083/connectors/todo-outbox-extension-connector/status \
 		-H 'content-type: application/json' | jq .
 
-connector-create-extension:
-	@echo $$JSON_CONNECTOR_EXTENSION | bash
+connector-status: connector-standalone-status connector-extension-status
 
-connector-create: connector-create-standalone connector-create-extension
+connector-standalone-delete:
+	curl -X "DELETE" "http://localhost:8083/connectors/todo-outbox-standalone-connector"
+
+connector-extension-delete:
+	curl -X "DELETE" "http://localhost:8083/connectors/todo-outbox-extension-connector"
+
+connector-delete: connector-standalone-delete connector-standalone-delete
 
 connector-list:
 	@curl -s "http://localhost:8083/connectors"| \
@@ -101,17 +110,18 @@ connector-list:
 		sed 's/\"//g'| \
 		sort
 
-connector-delete:
-	curl -X "DELETE" "http://localhost:8083/connectors/todo-outbox-standalone-connector"
-	curl -X "DELETE" "http://localhost:8083/connectors/todo-outbox-extension-connector"
+# Docker
+docker-standalone:
+	@docker-compose -f docker/docker-compose-standalone.yaml \
+		-p debezium-standalone up
+
+docker-extension:
+	@docker-compose -f docker/docker-compose-extension.yaml \
+		-p debezium-extension up
 
 # Tools
 todo:
 	@echo $$JSON_TODO | bash
-
-
-docker:
-	docker-compose up
 
 listen-kt:
 	kt consume -topic todo_created
