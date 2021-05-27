@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-public class TodoRepositoryImpl implements TodoRepository {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TodoRepositoryImpl.class);
+public class JPATodoRepository implements TodoRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JPATodoRepository.class);
 
     @Inject
     EntityManager entityManager;
