@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @ApplicationScoped
-public class OutboxRepositoryImpl implements OutboxRepository {
+public class JPAOutboxRepository implements OutboxRepository {
 
     @Inject
     EntityManager entityManager;
