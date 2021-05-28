@@ -39,8 +39,8 @@ services:
 
   # Install debezium-connect
   debezium-connect:
-    container_name: showcase-debezium-connect
-    image: showcase-debezium-connect
+    container_name: custom-connect
+    image: unexist/custom-connect
     hostname: debezium-connect
     ports:
       - '8083:8083'
@@ -57,7 +57,7 @@ services:
   # Create topics
   create-topics:
     container_name: create-topics
-    image: showcase-debezium-connect
+    image: unexist/custom-connect
     command: bash -c "
       docker exec -t kafka /usr/bin/kafka-topics \
       --create --bootstrap-server :9092 \
