@@ -1,6 +1,53 @@
-Quarkus outbox showcase
+Quarkus debezium showcase
+====
+This project contains two different approaches of the transaction outbox pattern based on debezium.
+
+Standalone
 ----
-This project holds a showcase for the transaction outbox pattern.
+This example handles the outbox manually and uses a custom Kafka connect transformer to send the
+actual messages.
+
+Extension
+----
+This uses the debezium quarkus extension to deal with the outbox and then relies on a message
+based on debezium.
+
+Prerequisites
+----
+In order to run this examples following steps are required:
+
+1. Build the docker container in **debezium-transformer-standalone** via `make build`
+2. Build the docker container in **debezium-transformer-extension** via `make build`
+
+How to run this example?
+----
+This can be done either for **standalone** or **extension**:
+
+1. Run the specific docker-compose file via `make docker-standalone`
+2. Run the specific quarkus application via `make quarkus-standalone`
+3. Create a kafka connector via `make connector-standalone-create`
+4. Start the kafka listener via `make listen-cat`
+5. Send a todo to the REST endpoint via `make todo`
+6. Check the output of *kafkacat*
+
+Other commands
+----
+- Check status of the kafka connector via `make connector-standalone-status`
+- Check status of all connectors via `make connector-status`  
+- List all connectors via `make connector-list`
+- Delete specific connector via `make connector-standalone-delete`  
+- Delete all connectors via `make connector-delete`
+- Open psql session do the database via `make psql`
+
+Tools
+----
+Following tools are required for the examples:
+
+- make
+- docker
+- curl
+- kafkacat
+- psql
 
 Links
 ----
