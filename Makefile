@@ -119,6 +119,13 @@ docker-extension:
 	@docker-compose -f docker/docker-compose-extension.yaml \
 		-p debezium-extension up
 
+# Quarkus
+quarkus-standalone:
+	mvn -f todo-service-standalone/pom.xml quarkus:dev
+
+quarkus-extension:
+	mvn -f todo-service-extension/pom.xml quarkus:dev
+
 # Tools
 todo:
 	@echo $$JSON_TODO | bash
