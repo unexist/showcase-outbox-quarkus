@@ -2,12 +2,12 @@ Quarkus debezium showcase
 ====
 This project contains two different approaches of the transaction outbox pattern based on debezium.
 
-Standalone
+todo-service-standalone
 ----
 This example handles the outbox manually and uses a custom Kafka connect transformer to send the
 actual messages.
 
-Extension
+todo-service-extension
 ----
 This uses the debezium quarkus extension to deal with the outbox and then relies on a message
 based on debezium.
