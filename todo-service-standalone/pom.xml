@@ -8,7 +8,7 @@
 
     <parent>
         <groupId>dev.unexist.showcase</groupId>
-        <artifactId>quarkus-outbox-showcase</artifactId>
+        <artifactId>showcase-debezium-quarkus</artifactId>
         <version>0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
