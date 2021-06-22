@@ -1,26 +1,26 @@
-Quarkus debezium showcase
-====
+= Showcase for debezium based on quarkus
+
 This project contains two different approaches of the transaction outbox pattern based on debezium.
 
-todo-service-standalone
-----
+== todo-service-standalone
+
 This example handles the outbox manually and uses a custom Kafka connect transformer to send the
 actual messages.
 
-todo-service-extension
-----
+== todo-service-extension
+
 This uses the debezium quarkus extension to deal with the outbox and then relies on a message
 based on debezium.
 
-Prerequisites
-----
+== Prerequisites
+
 In order to run this examples following steps are required:
 
 1. Build the docker container in **debezium-transformer-standalone** via `make build`
 2. Build the docker container in **debezium-transformer-extension** via `make build`
 
-How to run this example?
-----
+== How to run this example?
+
 This can be done either for **standalone** or **extension**:
 
 1. Run the specific docker-compose file via `make docker-standalone`
@@ -30,8 +30,8 @@ This can be done either for **standalone** or **extension**:
 5. Send a todo to the REST endpoint via `make todo`
 6. Check the output of *kafkacat*
 
-Other commands
-----
+== Other commands
+
 - Check status of the kafka connector via `make connector-standalone-status`
 - Check status of all connectors via `make connector-status`  
 - List all connectors via `make connector-list`
@@ -39,8 +39,8 @@ Other commands
 - Delete all connectors via `make connector-delete`
 - Open psql session do the database via `make psql`
 
-Tools
-----
+== Tools
+
 Following tools are required for the examples:
 
 - make
@@ -49,12 +49,12 @@ Following tools are required for the examples:
 - kafkacat
 - psql
 
-Links
-----
-https://debezium.io/documentation/reference/integrations/outbox.html
-https://debezium.io/blog/2020/01/22/outbox-quarkus-extension/
-https://debezium.io/documentation/reference/0.9/connectors/postgresql.html
-https://docs.confluent.io/platform/current/connect/references/restapi.html
-https://hub.docker.com/r/debezium/connect
-https://github.com/debezium/debezium-examples/tree/master/outbox
-https://github.com/debezium/debezium-examples/blob/master/outbox/debezium-strimzi/Dockerfile
+== Links
+
+- https://debezium.io/documentation/reference/integrations/outbox.html
+- https://debezium.io/blog/2020/01/22/outbox-quarkus-extension/
+- https://debezium.io/documentation/reference/0.9/connectors/postgresql.html
+- https://docs.confluent.io/platform/current/connect/references/restapi.html
+- https://hub.docker.com/r/debezium/connect
+- https://github.com/debezium/debezium-examples/tree/master/outbox
+- ¢https://github.com/debezium/debezium-examples/blob/master/outbox/debezium-strimzi/Dockerfile
