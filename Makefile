@@ -39,6 +39,13 @@ curl -X POST \
 		"database.server.name": "pg-outbox-extension-server",
 		"tombstones.on.delete": "false",
 		"table.whitelist": "public.outbox_extension",
+		"table.field.event.schema.version": "1",
+		"key.converter": "org.apache.kafka.connect.json.JsonConverter",
+		"key.converter.schemas.enable": "false",
+		"value.converter": "io.debezium.converters.CloudEventsConverter",
+		"value.converter.data.serializer.type": "json",
+		"value.converter.json.schemas.enable": "false",
+		"tracing.with.context.field.only": "true",
 		"transforms": "outbox",
 		"transforms.outbox.type" : "io.debezium.transforms.outbox.EventRouter",
 		"transforms.outbox.route.by.field": "type",
@@ -46,7 +53,7 @@ curl -X POST \
 		"transforms.outbox.table.field.event.timestamp": "timestamp",
 		"transforms.outbox.table.fields.additional.placement": "type:header:eventType"
 	}
-}'
+}' | jq .
 endef
 export JSON_CONNECTOR_EXTENSION
 
@@ -63,7 +70,7 @@ curl -X 'POST' \
     "start": "2021-05-07"
   },
   "title": "string"
-}'
+}' | jq .
 endef
 export JSON_TODO
 
@@ -84,14 +91,22 @@ connector-extension-create:
 connector-create: connector-standalone-create connector-extension-create
 
 connector-standalone-status:
-	curl -X "GET" http://localhost:8083/connectors/todo-outbox-standalone-connector/status \
+	curl -X "GET" "http://localhost:8083/connectors/todo-outbox-standalone-connector/status" \
 		-H 'content-type: application/json' | jq .
 
 connector-extension-status:
-	curl -X "GET" http://localhost:8083/connectors/todo-outbox-extension-connector/status \
+	curl -X "GET" "http://localhost:8083/connectors/todo-outbox-extension-connector/status" \
 		-H 'content-type: application/json' | jq .
 
 connector-status: connector-standalone-status connector-extension-status
+
+connector-standalone-restart:
+	curl -X "POST" "http://localhost:8083/connectors/todo-outbox-standalone-connector/restart"
+
+connector-extension-restart:
+	curl -X "POST" "http://localhost:8083/connectors/todo-outbox-extension-connector/restart"
+
+connector-restart: connector-standalone-restart connector-extension-restart
 
 connector-standalone-delete:
 	curl -X "DELETE" "http://localhost:8083/connectors/todo-outbox-standalone-connector"

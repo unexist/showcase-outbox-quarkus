@@ -48,34 +48,18 @@ services:
   # Install debezium-connect
   debezium-connect:
     container_name: debezium-connect
-    image: unexist/connect
+    image: debezium/connect
     hostname: debezium-connect
     ports:
       - '8083:8083'
     environment:
-      - KAFKA_LOG4J_OPTS=-Dlog4j.configuration=file:/opt/kafka/config/connect-log4j.properties
-      - KAFKA_CONNECT_BOOTSTRAP_SERVERS=kafka:29092
-      - |
-        KAFKA_CONNECT_CONFIGURATION=
-        key.converter=org.apache.kafka.connect.json.JsonConverter
-        value.converter=org.apache.kafka.connect.json.JsonConverter
-        key.converter.schemas.enable=false
-        value.converter.schemas.enable=false
-        group.id=connect
-        offset.storage.topic=connect-offsets
-        offset.storage.replication.factor=1
-        config.storage.topic=connect-configs
-        config.storage.replication.factor=1
-        status.storage.topic=connect-status
-        status.storage.replication.factor=1
-        consumer.interceptor.classes=io.opentracing.contrib.kafka.TracingConsumerInterceptor
-        producer.interceptor.classes=io.opentracing.contrib.kafka.TracingProducerInterceptor
-      - JAEGER_SERVICE_NAME=kafka-connect
-      - JAEGER_AGENT_HOST=jaeger
-      - JAEGER_SAMPLER_TYPE=const
-      - JAEGER_SAMPLER_PARAM=1
-      - STRIMZI_TRACING=jaeger
-    command: /opt/kafka/kafka_connect_run.sh
+      - BOOTSTRAP_SERVERS=kafka:29092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+      - KAFKA_DEBUG=true
+      - DEBUG_SUSPEND_FLAG=n
     depends_on:
       - kafka
       - postgres
