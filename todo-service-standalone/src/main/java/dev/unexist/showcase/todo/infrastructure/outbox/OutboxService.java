@@ -26,6 +26,12 @@ public class OutboxService {
     @Inject
     OutboxRepository outboxRepository;
 
+    /**
+     * Handle outbox event
+     *
+     * @param  event  {@link OutboxEvent} to handle
+     **/
+
     @Transactional(REQUIRES_NEW)
     public void handleOutboxEvent(@Observes(during = TransactionPhase.AFTER_SUCCESS) OutboxEvent event) {
         UUID uuid = UUID.randomUUID();

@@ -19,10 +19,9 @@ public interface TodoRepository {
     /**
      * Add {@link Todo} entry to list
      *
-     * @param todo
-     *          {@link Todo} entry to add
-     * @return
-     *          Either {@code true} on success; otherwise {@code false}
+     * @param  todo  {@link Todo} entry to add
+     *
+     * @return Either {@code true} on success; otherwise {@code false}
      **/
 
     boolean add(Todo todo);
@@ -30,10 +29,9 @@ public interface TodoRepository {
     /**
      * Update {@link Todo} with given id
      *
-     * @param todo
-     *          A {@link Todo} to update
-     * @return
-     *          Either {@code true} on success; otherwise {@code false}
+     * @param  todo  A {@link Todo} to update
+     *
+     * @return Either {@code true} on success; otherwise {@code false}
      **/
 
     boolean update(Todo todo);
@@ -41,10 +39,9 @@ public interface TodoRepository {
     /**
      * Delete {@link Todo} with given id
      *
-     * @param id
-     *          Id to delete
-     * @return
-     *          Either {@code true} on success; otherwise {@code false}
+     * @param  id  Id to delete
+     *
+     * @return Either {@code true} on success; otherwise {@code false}
      **/
 
     boolean deleteById(int id);
@@ -60,10 +57,9 @@ public interface TodoRepository {
     /**
      * Find {@link Todo} by given id
      *
-     * @param id
-     *          Id to find
-     * @return
-     *          A {@link Optional} with the result of the lookup
+     * @param  id  Id to find
+     *
+     * @return A {@link Optional} with the result of the lookup
      **/
 
     Optional<Todo> findById(int id);

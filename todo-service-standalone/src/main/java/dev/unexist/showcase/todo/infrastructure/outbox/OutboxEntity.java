@@ -40,8 +40,21 @@ public class OutboxEntity {
     @Column(name = "createdOn")
     private Date createdOn;
 
+    /**
+     * Constructor
+     **/
+
     protected OutboxEntity() {
     }
+
+    /**
+     * Constructor
+     *
+     * @param  uuid         UUID of the aggregate
+     * @param  aggregateId  Id of the aggregate
+     * @param  eventType    Event type of the aggregate
+     * @param  payload      Payload of this event
+     */
 
     public OutboxEntity(UUID uuid, Integer aggregateId, String eventType, String payload) {
         this.uuid = requireNonNull(uuid);

@@ -16,10 +16,9 @@ public interface OutboxRepository {
     /**
      * Add {@link OutboxEntity} entry to list
      *
-     * @param entity
-     *          {@link OutboxEntity} entry to add
-     * @return
-     *          Either {@code true} on success; otherwise {@code false}
+     * @param  entity  A {@link OutboxEntity} entry to add
+     *
+     * @return Either {@code true} on success; otherwise {@code false}
      **/
 
     boolean add(OutboxEntity entity);

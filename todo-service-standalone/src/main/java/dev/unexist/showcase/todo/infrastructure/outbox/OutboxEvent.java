@@ -16,25 +16,61 @@ public class OutboxEvent {
     private String eventType;
     private String payload;
 
+    /**
+     * Get aggregate id
+     *
+     * @return Id of the aggregate
+     **/
+
     public Integer getAggregateId() {
         return aggregateId;
     }
+
+    /**
+     * Set aggregate id
+     *
+     * @param  aggregateId  Aggregate id
+     **/
 
     public void setAggregateId(Integer aggregateId) {
         this.aggregateId = aggregateId;
     }
 
+    /**
+     * Get event type
+     *
+     * @return Type of event
+     **/
+
     public String getEventType() {
         return eventType;
     }
+
+    /**
+     * Set event type
+     *
+     * @param  eventType  Event type
+     **/
 
     public void setEventType(String eventType) {
         this.eventType = eventType;
     }
 
+    /**
+     * Get payload
+     *
+     * @return Payload of the event
+     **/
+
     public String getPayload() {
         return payload;
     }
+
+    /**
+     * Set payload
+     *
+     * @param  payload  Payload to set
+     **/
 
     public void setPayload(String payload) {
         this.payload = payload;

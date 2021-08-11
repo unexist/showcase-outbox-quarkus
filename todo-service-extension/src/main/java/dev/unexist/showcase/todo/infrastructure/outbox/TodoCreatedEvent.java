@@ -35,6 +35,13 @@ public class TodoCreatedEvent implements ExportedEvent<String, JsonNode> {
     private final JsonNode jsonNode;
     private final Instant timestamp;
 
+    /**
+     * Constructor
+     *
+     * @param  createdAt  Timestamp of creation
+     * @param  todo       A {@link Todo}
+     **/
+
     public TodoCreatedEvent(Instant createdAt, Todo todo) {
         this.todoId = todo.getId();
         this.timestamp = createdAt;
@@ -51,6 +58,14 @@ public class TodoCreatedEvent implements ExportedEvent<String, JsonNode> {
 
         this.jsonNode = JsonSchema.envelope(schema, payload);
     }
+
+    /**
+     * Infer schema
+     *
+     * @param  jsonValue  Value to infer from
+     *
+     * @return
+     **/
 
     private Schema inferSchema(JsonNode jsonValue) {
         switch (jsonValue.getNodeType()) {

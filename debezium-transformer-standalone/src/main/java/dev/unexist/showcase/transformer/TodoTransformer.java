@@ -15,8 +15,8 @@ public class TodoTransformer<R extends ConnectRecord<R>> implements Transformati
     /**
      * This method is invoked when a change is made on the outbox schema.
      *
-     * @param sourceRecord
-     *          Source record to handle
+     * @param  sourceRecord  Source record to handle
+     *
      * @return
      **/
 
@@ -25,7 +25,7 @@ public class TodoTransformer<R extends ConnectRecord<R>> implements Transformati
         Struct kStruct = (Struct) sourceRecord.value();
         String databaseOperation = kStruct.getString("op");
 
-        /* Handle only the Create's */
+        /* Handle only the creates */
         if ("c".equalsIgnoreCase(databaseOperation)) {
 
             /* Get the details */
@@ -47,12 +47,28 @@ public class TodoTransformer<R extends ConnectRecord<R>> implements Transformati
         return sourceRecord;
     }
 
+    /**
+     * Get new config
+     *
+     * @return A new {@link ConfigDef}
+     **/
+
     public ConfigDef config() {
         return new ConfigDef();
     }
 
+    /**
+     * Close transformer
+     **/
+
     public void close() {
     }
+
+    /**
+     * Configure transformer
+     *
+     * @param  configs  Config to use
+     **/
 
     public void configure(Map<String, ?> configs) {
     }

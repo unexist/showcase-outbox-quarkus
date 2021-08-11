@@ -43,5 +43,9 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-devservices-postgresql</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-json</artifactId>
+        </dependency>
     </dependencies>
 </project>
