@@ -49,10 +49,10 @@ public class TodoCreatedEvent implements ExportedEvent<String, JsonNode> {
         JsonNode payload = MAPPER.valueToTree(todo);
         Schema jsonSchema = inferSchema(payload);
 
-        JsonConverter CONVERTER = new JsonConverter();
-        CONVERTER.configure(Collections.singletonMap("schemas.enable", true), false);
+        JsonConverter jsonConverter = new JsonConverter();
+        jsonConverter.configure(Collections.singletonMap("schemas.enable", true), false);
 
-        ObjectNode schema = CONVERTER.asJsonSchema(jsonSchema);
+        ObjectNode schema = jsonConverter.asJsonSchema(jsonSchema);
 
         schema.put("name", "test");
 
@@ -76,22 +76,25 @@ public class TodoCreatedEvent implements ExportedEvent<String, JsonNode> {
             case NUMBER:
                 if (jsonValue.isIntegralNumber()) {
                     return Schema.INT64_SCHEMA;
-                }
-                else {
+                } else {
                     return Schema.FLOAT64_SCHEMA;
                 }
             case ARRAY:
                 SchemaBuilder arrayBuilder = SchemaBuilder.array(
-                        jsonValue.elements().hasNext() ? inferSchema(jsonValue.elements().next()) :
-                                Schema.OPTIONAL_STRING_SCHEMA);
+                        jsonValue.elements().hasNext()
+                                ? inferSchema(jsonValue.elements().next())
+                                : Schema.OPTIONAL_STRING_SCHEMA);
+
                 return arrayBuilder.build();
             case OBJECT:
                 SchemaBuilder structBuilder = SchemaBuilder.struct();
                 Iterator<Map.Entry<String, JsonNode>> it = jsonValue.fields();
+
                 while (it.hasNext()) {
                     Map.Entry<String, JsonNode> entry = it.next();
                     structBuilder.field(entry.getKey(), inferSchema(entry.getValue()));
                 }
+
                 return structBuilder.build();
             case STRING:
                 return Schema.STRING_SCHEMA;
