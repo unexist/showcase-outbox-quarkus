@@ -1,5 +1,5 @@
 /**
- * @package Quarkus-Kubernetes-Showcase
+ * @package Showcase-Outbox-Quarkus
  *
  * @file Stupid integration test
  * @copyright 2019 Christoph Kappel <unexist@subforge.org>

@@ -1,3 +1,14 @@
+/**
+ * @package Showcase-Outbox-Quarkus
+ *
+ * @file Todo resource
+ * @copyright 2020-2021 Christoph Kappel <christoph@unexist.dev>
+ * @version $Id$
+ *
+ * This program can be distributed under the terms of the Apache License v2.0.
+ * See the file LICENSE for details.
+ **/
+
 package dev.unexist.showcase.transformer;
 
 import org.apache.kafka.common.config.ConfigDef;

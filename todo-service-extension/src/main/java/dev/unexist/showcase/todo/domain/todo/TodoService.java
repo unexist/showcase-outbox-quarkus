@@ -1,5 +1,5 @@
 /**
- * @package Quarkus-Kubernetes-Showcase
+ * @package Showcase-Outbox-Quarkus
  *
  * @file Todo domain service
  * @copyright 2020-2021 Christoph Kappel <christoph@unexist.dev>

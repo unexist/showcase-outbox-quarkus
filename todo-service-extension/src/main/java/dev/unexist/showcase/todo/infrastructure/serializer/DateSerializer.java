@@ -1,5 +1,5 @@
 /**
- * @package Quarkus-Kubernetes-Showcase
+ * @package Showcase-Outbox-Quarkus
  *
  * @file Todo serializer
  * @copyright 2021 Christoph Kappel <christoph@unexist.dev>
