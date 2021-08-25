@@ -74,12 +74,6 @@ curl -X 'POST' \
 endef
 export JSON_TODO
 
-# Build
-debezium:
-	cd debezium-transformer
-	mvn clean install
-
-	docker build -t showcase-debezium-connect .
 
 # Connector
 connector-standalone-create:
@@ -126,6 +120,17 @@ connector-list:
 		sort
 
 # Docker
+docker-build-debezium:
+	cd transformer-debezium
+
+	docker build -t custom-connect -f docker/Dockerfile .
+
+docker-build-standalone:
+	cd transformer-standalone
+	mvn clean package -f pom.xml
+
+	docker build -t connect -f docker/Dockerfile .
+
 docker-standalone:
 	@docker-compose -f docker/docker-compose-standalone.yaml \
 		-p debezium-standalone up
@@ -145,13 +150,10 @@ quarkus-extension:
 todo:
 	@echo $$JSON_TODO | bash
 
-listen-kt:
-	kt consume -topic todo_created
-
-listen-cat:
+kat-listen:
 	kafkacat -t todo_created -b localhost:9092 -C
 
-test-cat:
+kat-test:
 	kafkacat -t todo_created -b localhost:9092 -P
 
 psql:
