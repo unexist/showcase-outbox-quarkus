@@ -37,11 +37,11 @@ services:
     depends_on:
       - zookeeper
 
-  # Install debezium-connect
-  debezium-connect:
-    container_name: custom-connect
-    image: unexist/custom-connect
-    hostname: debezium-connect
+  # Install custom-connect
+  connect:
+    container_name: connect-standlone
+    image: unexist/connect-standalone
+    hostname: connect
     ports:
       - '8083:8083'
     environment:
@@ -57,12 +57,11 @@ services:
   # Create topics
   create-topics:
     container_name: create-topics
-    image: unexist/custom-connect
+    image: unexist/connect-standlone
     command: bash -c "
       docker exec -t kafka /usr/bin/kafka-topics \
-      --create --bootstrap-server :9092 \
-      --topic todo_created \
-      --partitions 1 \
-      --replication-factor 1"
+      --bootstrap-server :9092 \
+      --create --topic todo_created --partitions 1 --replication-factor 1 \
+      --if-not-exists"
     depends_on:
       - kafka

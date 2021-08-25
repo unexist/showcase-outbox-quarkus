@@ -121,15 +121,12 @@ connector-list:
 
 # Docker
 docker-build-debezium:
-	cd transformer-debezium
-
-	docker build -t custom-connect -f docker/Dockerfile .
+	docker build -t connect-debezium -f transformer-debezium/docker/Dockerfile transformer-debezium
 
 docker-build-standalone:
-	cd transformer-standalone
-	mvn clean package -f pom.xml
+	mvn clean package -f transformer-standalone/pom.xml
 
-	docker build -t connect -f docker/Dockerfile .
+	docker build -t connect-standalone -f transformer-standalone/docker/Dockerfile transformer-standalone
 
 docker-standalone:
 	@docker-compose -f docker/docker-compose-standalone.yaml \

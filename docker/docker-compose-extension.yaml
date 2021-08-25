@@ -46,10 +46,10 @@ services:
       - zookeeper
 
   # Install debezium-connect
-  debezium-connect:
-    container_name: debezium-connect
-    image: debezium/connect
-    hostname: debezium-connect
+  connect:
+    container_name: connect-debezium
+    image: unexist/connect-debezium
+    hostname: connect
     ports:
       - '8083:8083'
     environment:
@@ -69,6 +69,10 @@ services:
   create-topics:
     container_name: create-topics
     image: confluentinc/cp-kafka
-    command: bash -c "kafka-topics --bootstrap-server kafka:29092 --create --topic todo_created --partitions 1 --replication-factor 1 --if-not-exists"
+    command: bash -c "
+      kafka-topics \
+      --bootstrap-server kafka:29092 \
+      --create --topic todo_created --partitions 1 --replication-factor 1 \
+      --if-not-exists"
     depends_on:
       - kafka
