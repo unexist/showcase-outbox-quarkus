@@ -42,7 +42,7 @@ curl -X POST \
 		"table.field.event.schema.version": "1",
 		"key.converter": "org.apache.kafka.connect.json.JsonConverter",
 		"key.converter.schemas.enable": "false",
-		"value.converter": "io.debezium.converters.CloudEventsConverter",
+		"value.converter": "org.apache.kafka.connect.json.JsonConverter",
 		"value.converter.data.serializer.type": "json",
 		"value.converter.json.schemas.enable": "false",
 		"tracing.with.context.field.only": "true",

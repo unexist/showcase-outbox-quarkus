@@ -1,7 +1,6 @@
 FROM strimzi/kafka:0.20.1-kafka-2.6.0
 
 ENV KAFKA_CONNECT_PLUGIN_PATH=/opt/kafka/connect-plugins
-
 ENV DEBEZIUM_DIR=$KAFKA_CONNECT_PLUGIN_PATH/debezium-connector-postgres
 
 USER root
