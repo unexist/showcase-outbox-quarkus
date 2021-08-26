@@ -48,7 +48,7 @@ services:
   # Install debezium-connect
   connect:
     container_name: connect-debezium
-    image: debezium/connect #docker.io/library/connect-debezium
+    image: debezium/connect #docker.io/library/connect-extension
     hostname: connect
     ports:
       - '8083:8083'

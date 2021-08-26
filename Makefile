@@ -120,8 +120,8 @@ connector-list:
 		sort
 
 # Docker
-docker-build-debezium:
-	docker build -t connect-debezium -f transformer-debezium/docker/Dockerfile transformer-debezium
+docker-build-extension:
+	docker build -t connect-extension -f transformer-debezium/docker/Dockerfile transformer-extension
 
 docker-build-standalone:
 	mvn clean package -f transformer-standalone/pom.xml
