@@ -57,11 +57,7 @@ services:
   # Create topics
   create-topics:
     container_name: create-topics
-    image: docker.io/library/connect-standlone
-    command: bash -c "
-      docker exec -t kafka /usr/bin/kafka-topics \
-      --create --bootstrap-server :9092 \
-      --topic todo_created --partitions 1 --replication-factor 1 \
-      --if-not-exists"
+    image: confluentinc/cp-kafka
+    command: bash -c "kafka-topics --bootstrap-server kafka:29092 --create --topic todo_created --partitions 1 --replication-factor 1 --if-not-exists"
     depends_on:
       - kafka

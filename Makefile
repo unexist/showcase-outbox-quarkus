@@ -121,7 +121,7 @@ connector-list:
 
 # Docker
 docker-build-extension:
-	docker build -t connect-extension -f transformer-debezium/docker/Dockerfile transformer-extension
+	docker build -t connect-extension -f transformer-extension/docker/Dockerfile transformer-extension
 
 docker-build-standalone:
 	mvn clean package -f transformer-standalone/pom.xml
