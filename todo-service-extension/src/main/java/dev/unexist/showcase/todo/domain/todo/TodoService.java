@@ -39,18 +39,18 @@ public class TodoService {
      *
      * @param  base  A {@link TodoBase} entry
      *
-     * @return Either {@code true} on success; otherwise {@code false}
+     * @return Either id of the entry on success; otherwise {@code -1}
      **/
 
     @Transactional
-    public boolean create(TodoBase base) {
+    public int create(TodoBase base) {
         Todo todo = new Todo(base);
 
-        this.todoRepository.add(todo);
+        boolean retval = this.todoRepository.add(todo);
 
         this.eventHandler.fire(new TodoCreatedEvent(Instant.now(), todo));
 
-        return true;
+        return retval ? todo.getId() : -1;
     }
 
     /**

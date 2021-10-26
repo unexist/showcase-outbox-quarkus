@@ -39,15 +39,14 @@ public class TodoService {
      *
      * @param  base  A {@link TodoBase} entry
      *
-     * @return Either {@code true} on success; otherwise {@code false}
+     * @return Either id of the entry on success; otherwise {@code -1}
      **/
 
     @Transactional
-    public boolean create(TodoBase base) {
-        boolean retval = true;
+    public int create(TodoBase base) {
         Todo todo = new Todo(base);
 
-        this.todoRepository.add(todo);
+        int retval = this.todoRepository.add(todo) ? todo.getId() : -1;
 
         OutboxEvent event = new OutboxEvent();
 
@@ -61,7 +60,7 @@ public class TodoService {
         } catch (JsonProcessingException jpe) {
             LOGGER.warn("Json error: {}", jpe.getMessage(), jpe);
 
-            retval = false;
+            retval = -1;
         }
 
         this.eventHandler.fire(event);
