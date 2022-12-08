@@ -14,7 +14,7 @@
     </parent>
 
     <modules>
-        <module>todo-service-extension</module>
+        <module>todo-service-debezium</module>
         <module>todo-service-standalone</module>
         <module>transformer-standalone</module>
     </modules>
