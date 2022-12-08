@@ -1,5 +1,5 @@
 /**
- * @package Quarkus-Outbox-Showcase
+ * @package Showcase-Outbox-Quarkus
  *
  * @file Outbox event
  * @copyright 2020-2022 Christoph Kappel <christoph@unexist.dev>
