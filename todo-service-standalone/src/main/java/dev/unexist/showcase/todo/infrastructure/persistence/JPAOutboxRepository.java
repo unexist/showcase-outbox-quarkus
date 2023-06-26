@@ -14,9 +14,9 @@ package dev.unexist.showcase.todo.infrastructure.persistence;
 import dev.unexist.showcase.todo.infrastructure.outbox.OutboxEntity;
 import dev.unexist.showcase.todo.infrastructure.outbox.OutboxRepository;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 @ApplicationScoped
 public class JPAOutboxRepository implements OutboxRepository {

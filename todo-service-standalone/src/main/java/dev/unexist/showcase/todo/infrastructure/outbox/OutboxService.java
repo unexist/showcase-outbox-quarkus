@@ -11,11 +11,11 @@
 
 package dev.unexist.showcase.todo.infrastructure.outbox;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.event.TransactionPhase;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.event.TransactionPhase;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import java.util.UUID;
 
 import static javax.transaction.Transactional.TxType.REQUIRES_NEW;

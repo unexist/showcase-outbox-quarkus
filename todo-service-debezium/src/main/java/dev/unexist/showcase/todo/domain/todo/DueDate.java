@@ -14,7 +14,7 @@ package dev.unexist.showcase.todo.domain.todo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.unexist.showcase.todo.infrastructure.serializer.DateSerializer;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 import java.time.LocalDate;
 
 @Embeddable
